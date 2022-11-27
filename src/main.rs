@@ -164,7 +164,7 @@ async fn handle_rejection(err: Rejection) -> std::result::Result<impl Reply, Inf
 
 #[tokio::main]
 async fn main() {
-    let upload_route = warp::path("upload")
+    let upload_route = warp::path("style_transfer")
     .and(warp::post())
     .and(warp::multipart::form().max_length(5_000_000))
     .and_then(upload_imgs_and_transfer_style);
