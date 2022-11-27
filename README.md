@@ -8,7 +8,7 @@ Group Member Net IDs: vvjain3, dssethi2, jmmayer3
 
 - Artistic Style Tranfer Using CNN
 
-- The project aims to develop a CNN that takes two images(content image and style image) as input and produces an output image that incorporates the content image's content using the artistic style present in the style image. For example,
+- The project aims to develop a CNN that takes two images (content image and style image) as input and produces an output image that incorporates the content image's content using the artistic style present in the style image. For example,
 
 ![This is an image](https://2.bp.blogspot.com/-kV4SKTFlWQk/WA6n82yFFJI/AAAAAAAABWY/9GcePSQZ7qcY95b7zVnCBR4ABWR7K2o4gCLcB/s1600/image04.png)
 
