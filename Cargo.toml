@@ -1,0 +1,21 @@
+[package]
+name = "rust-api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+warp = "0.3"
+uuid = { version = "0.8", features = ["v4"] }
+futures = { version = "0.3", default-features = false }
+bytes = "1.0"
+tokio = { version = "1", features = ["full"] }
+lettre = { version = "0.10.0-beta.2", default-features = false, features = ["smtp-transport", "tokio1-rustls-tls", "hostname", "r2d2", "builder"] }
+tch = {version="0.10.0", path="../tch-rs"}
+anyhow = "1.0.33"
+ndarray = "0.15.6"
+rusoto_core = { version = "0.46", default-features = false, features = ["rustls"] }
+rusoto_ses = { version = "0.46", default-features = false, features = ["rustls"] }
+base64 = "0.13"
+
+[dev-dependencies]
+torch-sys = {version="0.10.0", path="../tch-rs/torch-sys"}
