@@ -10,10 +10,9 @@ use warp::{
 };
 use std::str;
 use std::fs;
-use lettre::{message::Attachment, Message, message::MultiPart};
-use lettre::{
+use lettre::{ message::Attachment, Message, message::MultiPart,
     transport::smtp::authentication::Credentials, AsyncSmtpTransport, AsyncTransport,
-    Tokio1Executor,
+    Tokio1Executor
 };
 
 async fn send_email(uuid: String, to_email: String) -> Result<(), Box<dyn std::error::Error>> {
