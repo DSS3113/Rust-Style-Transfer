@@ -17,7 +17,7 @@
    background: white;
 }
 
-.preview img{
+.preview img[src=""]{
    display: none;
 }
 /* Button */
