@@ -57,7 +57,7 @@ pub async fn style_transfer(uuid : String, style_file_name : String, content_fil
             .map(|&idx| input_layers[idx].mse_loss(&content_layers[idx], tch::Reduction::Mean))
             .sum();
         drop(input_layers);
-        let total_loss = style_loss * 1e6 + content_loss;
+        let total_loss = style_loss * 1e8 + content_loss;
         optim.backward_step(&total_loss);
         if i == 999{
             println!("Loss: {}", f64::from(total_loss));
