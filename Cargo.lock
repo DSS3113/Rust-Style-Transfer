@@ -1434,7 +1434,6 @@ dependencies = [
  "rusoto_ses",
  "tch",
  "tokio",
- "torch-sys",
  "uuid",
  "warp",
 ]
@@ -1824,7 +1823,9 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 
 [[package]]
 name = "tch"
-version = "0.10.0"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d46cf7b3ac7264ed8ec3e88a3dea3a9c1a8271a878d099fd743e63a9976d7d1"
 dependencies = [
  "half",
  "lazy_static",
@@ -2040,7 +2041,9 @@ dependencies = [
 
 [[package]]
 name = "torch-sys"
-version = "0.10.0"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4aebf5bacfdacc38c539c17e5444c935c863d2b7a7b66bbd7ebfbaf32f98834e"
 dependencies = [
  "anyhow",
  "cc",

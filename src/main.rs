@@ -14,6 +14,8 @@ use lettre::{ message::Attachment, Message, message::MultiPart,
     transport::smtp::authentication::Credentials, AsyncSmtpTransport, AsyncTransport,
     Tokio1Executor
 };
+use std::path::Path;
+use std::env;
 
 async fn send_email(uuid: String, to_email: String) -> Result<(), Box<dyn std::error::Error>> {
     let smtp_credentials = Credentials::new("johnrustdavid@gmail.com".to_string(), "dxmychfgprpofpdx".to_string());
@@ -163,6 +165,14 @@ async fn handle_rejection(err: Rejection) -> std::result::Result<impl Reply, Inf
 
 #[tokio::main]
 async fn main() {
+    fs::create_dir_all("./outputs/").unwrap();
+    fs::create_dir_all("./images/").unwrap();
+
+    if !Path::new("weights.ot").exists() {
+        println!("Download weights from https://drive.google.com/file/d/1KxgrUkgC3TeRWmW8GEmf9QWU4n5-KCpU/view?usp=sharing");
+        return;
+    }
+
     let upload_route = warp::path("style_transfer")
     .and(warp::post())
     .and(warp::multipart::form().max_length(5_000_000))

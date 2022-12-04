@@ -27,6 +27,11 @@ pub async fn style_transfer(uuid : String, style_file_name : String, content_fil
     let args: Vec<_> = env::args().collect();
     //println!("{}", env::var("RUST_BACKTRACE").unwrap());
     //println!("{}", env::var("PYTORCH_NO_CUDA_MEMORY_CACHING").unwrap());
+    if device == Device::Cpu {
+        println!("Running on CPU");
+    } else {
+        println!("Running on GPU");
+    }
     let mut varstore_model = tch::nn::VarStore::new(device);
     let net = vgg::vgg16(&varstore_model.root(), imagenet::CLASS_COUNT);
     varstore_model.load(&weights).unwrap();
@@ -59,14 +64,14 @@ pub async fn style_transfer(uuid : String, style_file_name : String, content_fil
         drop(input_layers);
         let total_loss = style_loss * 1e8 + content_loss;
         optim.backward_step(&total_loss);
-        if i == 999{
+        if i == 999 {
             println!("Loss: {}", f64::from(total_loss));
             imagenet::save_image(&input, &format!("./outputs/{}_output.jpg", uuid))?;
         } else {
             drop(total_loss);
         }
     }
-
+    
     Ok(())
 }
 
