@@ -1,4 +1,4 @@
-# CS128H-Project-The Indomitable Dominators 
+# CS128H Project: The Indomitable Dominators 
 
 Group Member Names: Jake Mayer, Vedaant Jain, Danish Singh Sethi
 
