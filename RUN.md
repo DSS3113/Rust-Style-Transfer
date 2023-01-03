@@ -14,7 +14,7 @@ Download the [weights](https://drive.google.com/file/d/1KxgrUkgC3TeRWmW8GEmf9QWU
 Create a `.env` file in the following format:
 ```
 FROM_GMAIL_ADDRESS="gmailaddress@gmail.com"
-GMAIL_UNIQUE_PASSWORD="unqiuepassword"
+GMAIL_UNIQUE_PASSWORD="uniquepassword"
 ```
 Please keep in mind that you must specify a Gmail address as other email providers don't work for our purposes.
 
