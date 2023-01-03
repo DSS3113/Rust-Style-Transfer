@@ -28,17 +28,23 @@
       </form>
     </div>
     <script>
-      document.getElementById("content_img_input").onchange = e => {
-        const file = e.target.files[0];
-        const img = document.getElementById("content_img");
-        img.src = window.URL.createObjectURL(file);
-      };
+      function updatePreviewImage(input, previewImage) {
+        if (input.files && input.files[0]) {
+          previewImage.src = URL.createObjectURL(input.files[0]);
+        }
+      }
 
-      document.getElementById("style_img_input").onchange = e => {
-        const file = e.target.files[0];
-        const img = document.getElementById("style_img");
-        img.src = window.URL.createObjectURL(file);
-      };
+      function listenToImageChange(input, previewImage) {
+        input.addEventListener("change", () => {
+          updatePreviewImage(input, previewImage);
+        });
+        window.addEventListener("pageshow", () => {
+          updatePreviewImage(input, previewImage);
+        });
+      }
+
+      listenToImageChange(document.getElementById("content_img_input"), document.getElementById("content_img"));
+      listenToImageChange(document.getElementById("style_img_input"), document.getElementById("style_img"));
     </script>
   </body>
 </html>
