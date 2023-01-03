@@ -32,7 +32,7 @@ async fn send_email(uuid: String, to_email: String) -> Result<(), Box<dyn std::e
     let from = format!("Style Transfer <{}>", from_email);
     let to = format!("<{}>", to_email);
     let subject = "Image generated using style transfer";
-    let body = SinglePart::builder().header(header::ContentType::TEXT_PLAIN)
+    let body = SinglePart::builder().header(header::ContentType::TEXT_HTML)
     .body("<h1>Here's the image</h1>".to_string());
     let image_body = Attachment::new(String::from("result.jpg")).body(
         fs::read(format!("./outputs/{}_output.jpg", uuid))?,
@@ -52,8 +52,6 @@ async fn send_email(uuid: String, to_email: String) -> Result<(), Box<dyn std::e
     mailer.send(email?).await;
     Ok(())
 }
-
-
 
 // Credits: https://github.com/zupzup/warp-upload-download-example
 async fn upload_imgs_and_transfer_style(form: FormData) -> Result<impl Reply, Rejection> {
