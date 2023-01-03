@@ -2,15 +2,9 @@
 //   https://pytorch.org/tutorials/advanced/neural_style_tutorial.html
 static style_layers_indices: [usize; 5] = [0, 2, 5, 7, 10];
 static content_layers_indices: [usize; 1] = [7];
-use tch::Tensor;
-use tch::vision::vgg;
-use tch::Device;
-use tch::vision::imagenet;
-use anyhow::bail;
+use tch::{Device, vision::imagenet, vision::vgg, Tensor, nn, nn::OptimizerConfig, Kind};
+use anyhow::{bail, Result};
 use std::env;
-use tch::nn::OptimizerConfig;
-use anyhow::Result;
-use tch::nn;
 fn gram_matrix(matrix : &Tensor) -> Tensor {
     let (batch_size, d, h, w) = matrix.size4().unwrap();
     let intrmedit = matrix.view((batch_size * d, h * w));
@@ -23,7 +17,7 @@ fn style_loss_fn(matrix0 : &Tensor, matrix1 : &Tensor) -> Tensor{
 }
 
 pub async fn style_transfer(uuid : String, style_file_name : String, content_file_name : String, weights : String) -> Result<()> {
-    let device = Device::cuda_if_available();
+    let mut device = Device::cuda_if_available();
     let args: Vec<_> = env::args().collect();
     //println!("{}", env::var("RUST_BACKTRACE").unwrap());
     //println!("{}", env::var("PYTORCH_NO_CUDA_MEMORY_CACHING").unwrap());
@@ -34,7 +28,13 @@ pub async fn style_transfer(uuid : String, style_file_name : String, content_fil
     }
     let mut varstore_model = tch::nn::VarStore::new(device);
     let net = vgg::vgg16(&varstore_model.root(), imagenet::CLASS_COUNT);
-    varstore_model.load(&weights).unwrap();
+    varstore_model.load(&weights);
+    // The code commented below was an attempt to use MPS on Macs with the M1 chip. Unfortunately, the code still fails to run without errors. :( 
+    /* 
+    device = Device::Mps;
+    varstore_model.set_device(device);
+    println!("Switched to MPS");
+    */
     varstore_model.freeze();
 
     let style_file_name = imagenet::load_image(&style_file_name)
@@ -63,15 +63,16 @@ pub async fn style_transfer(uuid : String, style_file_name : String, content_fil
             .sum();
         drop(input_layers);
         let total_loss = style_loss * 1e8 + content_loss;
+        println!("{}", i);
         optim.backward_step(&total_loss);
         if i == 999 {
-            println!("Loss: {}", f64::from(total_loss));
+            println!("Loss: {}", f32::from(total_loss));
             imagenet::save_image(&input, &format!("./outputs/{}_output.jpg", uuid))?;
         } else {
             drop(total_loss);
         }
     }
-    
+
     Ok(())
 }
 

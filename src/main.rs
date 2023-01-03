@@ -10,24 +10,30 @@ use warp::{
 };
 use std::str;
 use std::fs;
-use lettre::{ message::Attachment, Message, message::MultiPart,
+use std::env;
+use lettre::{ message::Attachment, Message, message::{header, MultiPart, SinglePart},
     transport::smtp::authentication::Credentials, AsyncSmtpTransport, AsyncTransport,
     Tokio1Executor
 };
 use std::path::Path;
-use std::env;
+use dotenv::dotenv;
 
 async fn send_email(uuid: String, to_email: String) -> Result<(), Box<dyn std::error::Error>> {
-    let smtp_credentials = Credentials::new("johnrustdavid@gmail.com".to_string(), "dxmychfgprpofpdx".to_string());
+    dotenv().ok();
+
+    let from_email = std::env::var("FROM_GMAIL_ADDRESS").expect("FROM_GMAIL_ADDRESS must be set.").to_string();
+    let password = std::env::var("GMAIL_UNIQUE_PASSWORD").expect("GMAIL_UNIQUE_PASSWORD must be set.").to_string();
+    let smtp_credentials = Credentials::new(from_email.clone(), password);
 
     let mailer = AsyncSmtpTransport::<Tokio1Executor>::relay("smtp.gmail.com")?
         .credentials(smtp_credentials)
         .build();
 
-    let from = "CS128H Project Server <johnrustdavid@gmail.com>";
+    let from = format!("Style Transfer <{}>", from_email);
     let to = format!("<{}>", to_email);
     let subject = "Image generated using style transfer";
-    let body = "<h1>Here's the image</h1>".to_string();
+    let body = SinglePart::builder().header(header::ContentType::TEXT_PLAIN)
+    .body("<h1>Here's the image</h1>".to_string());
     let image_body = Attachment::new(String::from("result.jpg")).body(
         fs::read(format!("./outputs/{}_output.jpg", uuid))?,
         "img/jpg".parse().unwrap(),
@@ -39,11 +45,11 @@ async fn send_email(uuid: String, to_email: String) -> Result<(), Box<dyn std::e
         .subject(subject)
         .multipart(
             MultiPart::mixed()
+            .singlepart(body)
             .singlepart(image_body)
         );
 
     mailer.send(email?).await;
-
     Ok(())
 }
 
@@ -83,7 +89,7 @@ async fn upload_imgs_and_transfer_style(form: FormData) -> Result<impl Reply, Re
             to_email = value_str.clone().to_string();
             println!("Email to be sent to: {}", value_str);
         }
-
+        
         else if p_name == "content_img" || p_name == "style_img" {
             let content_type = p.content_type();
             let file_ending;
@@ -135,14 +141,16 @@ async fn upload_imgs_and_transfer_style(form: FormData) -> Result<impl Reply, Re
             println!("created file: {}", &file_name);
         }
     }
-  let weights = "weights.ot";
-  let response = style_transfer::style_transfer(uuid.to_string(), style_img_file_name.to_string(), content_img_file_name.to_string(), weights.to_string()).await;
-  let email_result = send_email(uuid.clone(), to_email.clone()).await;
-  if email_result.is_ok() {
-      println!("Email sent successfully for UUID {}", uuid.clone());
-  } else {
-      eprintln!("Error: email not sent.");
-  }
+    
+    let weights = "weights.ot";
+    let response = style_transfer::style_transfer(uuid.to_string(), style_img_file_name.to_string(), content_img_file_name.to_string(), weights.to_string()).await;
+    let email_result = send_email(uuid.clone(), to_email.clone()).await;
+    //let email_result = send_email("a".to_string(), to_email.clone()).await;
+    if email_result.is_ok() {
+        println!("Email sent successfully for UUID {}", uuid.clone());
+    } else {
+        eprintln!("Error: email not sent.");
+    }
 
     Ok("success")
 }
@@ -167,6 +175,11 @@ async fn handle_rejection(err: Rejection) -> std::result::Result<impl Reply, Inf
 async fn main() {
     fs::create_dir_all("./outputs/").unwrap();
     fs::create_dir_all("./images/").unwrap();
+
+    if !Path::new(".env").exists() {
+        println!("Create a .env file with in the format:\nFROM_GMAIL_ADDRESS=\"yourgmailaddress@gmail.com\"\nGMAIL_UNIQUE_PASSWORD=\"youruniquepassword\"");
+        return;
+    }
 
     if !Path::new("weights.ot").exists() {
         println!("Download weights from https://drive.google.com/file/d/1KxgrUkgC3TeRWmW8GEmf9QWU4n5-KCpU/view?usp=sharing");

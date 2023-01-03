@@ -2,3 +2,5 @@ target/
 images/
 weights.ot
 outputs/
+.env
+torch/

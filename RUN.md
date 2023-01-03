@@ -11,6 +11,13 @@ Ensure you have a compatible version of cuda for best performance.
 
 Download the [weights](https://drive.google.com/file/d/1KxgrUkgC3TeRWmW8GEmf9QWU4n5-KCpU/view?usp=sharing) to the root project directory.
 
+Create a `.env` file in the following format:
+```
+FROM_GMAIL_ADDRESS="gmailaddress@gmail.com"
+GMAIL_UNIQUE_PASSWORD="unqiuepassword"
+```
+Please keep in mind that you must specify a Gmail address as other email providers don't work for our purposes.
+
 Start the server: `cargo run` (may take some time if building torch from source)
 
 Open `ui.html` in a web browser to select and upload the target images, enter the output email, and click "Submit".
