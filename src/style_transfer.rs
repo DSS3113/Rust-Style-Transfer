@@ -2,9 +2,11 @@
 //   https://pytorch.org/tutorials/advanced/neural_style_tutorial.html
 static style_layers_indices: [usize; 5] = [0, 2, 5, 7, 10];
 static content_layers_indices: [usize; 1] = [7];
+static transfer_iterations: i32 = 1000;
 use tch::{Device, vision::imagenet, vision::vgg, Tensor, nn, nn::OptimizerConfig, Kind};
 use anyhow::{bail, Result};
 use std::env;
+use indicatif::ProgressIterator;
 fn gram_matrix(matrix : &Tensor) -> Tensor {
     let (batch_size, d, h, w) = matrix.size4().unwrap();
     let intrmedit = matrix.view((batch_size * d, h * w));
@@ -53,7 +55,7 @@ pub async fn style_transfer(uuid : String, style_file_name : String, content_fil
     let input = varstore.root().var_copy("image_trial", &content_file_name);
     let mut optim = nn::Adam::default().build(&varstore, 1.5e-1)?;
 
-    for i in 0..1000 {
+    for i in (0..transfer_iterations).progress() {
         let input_layers = net.forward_all_t(&input, false, Some(final_layer));
         let style_loss: Tensor =
             style_layers_indices.iter().map(|&idx| style_loss_fn(&input_layers[idx], &style_layers[idx])).sum();
@@ -63,9 +65,8 @@ pub async fn style_transfer(uuid : String, style_file_name : String, content_fil
             .sum();
         drop(input_layers);
         let total_loss = style_loss * 1e8 + content_loss;
-        println!("{}", i);
         optim.backward_step(&total_loss);
-        if i == 999 {
+        if i == transfer_iterations - 1 {
             println!("Loss: {}", f32::from(total_loss));
             imagenet::save_image(&input, &format!("./outputs/{}_output.jpg", uuid))?;
         } else {
