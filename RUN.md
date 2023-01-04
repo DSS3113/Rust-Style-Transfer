@@ -16,7 +16,7 @@ Create a `.env` file in the following format:
 FROM_GMAIL_ADDRESS="gmailaddress@gmail.com"
 GMAIL_UNIQUE_PASSWORD="uniquepassword"
 ```
-These are the credentials to the Gmail address that will be used for sending the output image to the specified email address. Please keep in mind that you must specify a Gmail address as other email providers don't work for our purposes.
+These are the credentials to the Gmail address that will be used for sending the output image to the specified email address. Please keep in mind that you must specify a Gmail address as the sender as other email providers don't work for our purposes.
 
 If you have an M1 Mac, please follow the following the additional steps given below:
 - install miniforge with homebrew -- See https://naolin.medium.com/conda-on-m1-mac-with-miniforge-bbc4e3924f2b
