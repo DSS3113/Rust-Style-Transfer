@@ -18,17 +18,6 @@ Group Member Net IDs: vvjain3, dssethi2, jmmayer3
 - Understand how to use CNNs for artistic style transfer.
 - Use the Rust bindings of a framework like PyTorch or Tensorflow to develop a CNN.
 - Use GPU to train the model in Rust.
-- Develop a REST API to host the model and get output image by passing two images through a POST request.
-
-#### Planned Roadmap
-- Checkpoint 1: Learn to use a Deep Learning framework in Rust
-- Checkpoint 2: Train the CNN for artistic style transfer
-- Final Submission: Develop the API and host the model.
-
-##### Possible Challenges
-- Collecting relevant data and traning the model on a local GPU
-
+- Develop a REST API to host the model.
 ##### References
 - https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
-######
-- We chose to work on this project as the three of us have always been curious about Neural Networks and their applications to images. Therefore, this project would give us ample opportunity to train a convolutional neural network and gain experience hosting and running a model. We would also gain some experience related to APIs and web programming in Rust through this project.
