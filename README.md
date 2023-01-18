@@ -13,9 +13,10 @@ Team members: <a href="https://github.com/DSS3113">Danish Singh Sethi</a>, <a hr
 - After training the model, we will develop a REST API in Rust to host the model which can be accessed through a server.
 
 ### Technical Overview:
-- Understand how to use CNNs for artistic style transfer.
-- Use the Rust bindings of a framework like PyTorch or Tensorflow to develop a CNN.
-- Use GPU to train the model in Rust.
-- Develop a REST API to host the model.
+This project:
+- Uses CNNs for artistic style transfer.
+- Uses the Rust bindings of a framework like PyTorch or Tensorflow to develop a CNN.
+- Uses the GPU to train the model in Rust.
+- Uses a REST API to interface between the user and the server which hosts the model.
 ##### References
 - https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
