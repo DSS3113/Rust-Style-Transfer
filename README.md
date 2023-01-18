@@ -1,6 +1,6 @@
 # CS128H Project: The Indomitable Dominators 
 
-Group Member Names: <a href="https://github.com/DSS3113">Danish Singh Sethi</a>, <a href="https://github.com/henopied">Jake Mayer</a>, <a href="https://github.com/ethvedbitdesjan">Vedaant Jain</a>
+Team members: <a href="https://github.com/DSS3113">Danish Singh Sethi</a>, <a href="https://github.com/henopied">Jake Mayer</a>, <a href="https://github.com/ethvedbitdesjan">Vedaant Jain</a>
 
 ## Project Introduction: 
 
