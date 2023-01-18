@@ -10,7 +10,7 @@ Team members: <a href="https://github.com/DSS3113">Danish Singh Sethi</a>, <a hr
 
 ![This is an image](https://2.bp.blogspot.com/-kV4SKTFlWQk/WA6n82yFFJI/AAAAAAAABWY/9GcePSQZ7qcY95b7zVnCBR4ABWR7K2o4gCLcB/s1600/image04.png)
 
-- After training the model, we will develop a REST API in Rust to host the model which can be accessed through a server.
+- The trained model uses a REST API in Rust to host the model which can be accessed through a server.
 
 ### Technical Overview:
 This project:
