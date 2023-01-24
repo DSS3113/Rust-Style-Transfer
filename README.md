@@ -15,7 +15,7 @@ Credits: <a href="https://github.com/DSS3113">Danish Singh Sethi</a>, <a href="h
 ### Technical Overview:
 This project:
 - Uses CNNs for artistic style transfer.
-- Uses the Rust bindings of a framework like PyTorch to develop a CNN.
+- Uses the Rust bindings of PyTorch to develop a CNN.
 - Uses the GPU to train the model in Rust.
 - Uses a REST API to interface between the user and the server which hosts the model.
 ##### References
