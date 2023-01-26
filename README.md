@@ -19,8 +19,10 @@ This project:
 - Uses the GPU to train the model in Rust.
 - Uses a REST API to interface between the user and the server which hosts the model.
 
-### Working Demo:
+### How to Run
+Follow the instructions given in <a href="https://github.com/DSS3113/Rust-Style-Transfer/blob/main/RUN.md">RUN.md</a> to run the project.
 
+### Working Demo:
 
 ![](https://github.com/DSS3113/Rust-Style-Transfer/blob/main/Rust_CNN_AdobeExpress.gif)
 
