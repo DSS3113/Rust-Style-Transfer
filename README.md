@@ -20,7 +20,11 @@ This project:
 - Uses a REST API to interface between the user and the server which hosts the model.
 
 ### Working Demo:
-<img src="https://github.com/DSS3113/Rust-Style-Transfer/blob/main/Rust_CNN_AdobeExpress.gif"/>
+
+
+https://user-images.githubusercontent.com/50327599/214757930-e589995f-d3be-4bfe-8dd2-11a5de4b00e8.mp4
+
+
 
 ##### References
 - https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
