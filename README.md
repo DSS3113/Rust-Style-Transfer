@@ -1,6 +1,6 @@
 # Rust-Style-Transfer
 
-Credits: <a href="https://github.com/DSS3113">Danish Singh Sethi</a>, <a href="https://github.com/henopied">Jake Mayer</a>, <a href="https://github.com/ethvedbitdesjan">Vedaant Jain</a>
+Credits: <a href="https://github.com/DSS3113">Danish Singh Sethi</a>, <a href="https://github.com/ethvedbitdesjan">Vedaant Jain</a>, <a href="https://github.com/henopied">Jake Mayer</a>
 
 ## Project Introduction: 
 
