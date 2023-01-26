@@ -22,7 +22,7 @@ This project:
 ### Working Demo:
 
 
-![](https://user-images.githubusercontent.com/50327599/214757930-e589995f-d3be-4bfe-8dd2-11a5de4b00e8.gif)
+![](https://github.com/DSS3113/Rust-Style-Transfer/blob/main/Rust_CNN_AdobeExpress.gif)
 
 
 
